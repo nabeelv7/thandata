@@ -119,7 +119,9 @@ export const visits = sqliteTable("visits", {
   // }
 
   domain: text("domain").notNull(),
-  location: text("location").notNull(),
+  country: text("country").notNull(),
+  city: text("city").notNull(),
+  flag: text("flag").notNull(),
   referrer: text("referrer").notNull(),
   device: text("device").notNull(),
   browser: text("browser").notNull(),
