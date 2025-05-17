@@ -2,7 +2,7 @@
   export let data;
 
   const browserGradients = {
-    chrome: "from-yellow-400 via-red-400 to-pink-400",
+    chrome: "from-green-400 to-blue-400",
     firefox: "from-orange-500 via-red-500 to-yellow-500",
     safari: "from-blue-400 via-cyan-400 to-blue-600",
     edge: "from-blue-500 via-green-500 to-indigo-500",
@@ -34,7 +34,7 @@
   <div class="flex py-5 flex-wrap gap-5">
     {#each data.visits as visit}
       <div
-        class={`flex flex-col gap-3 p-4 md:w-[48%] w-full text-white rounded-lg shadow-lg bg-gradient-to-br ${ 
+        class={`flex flex-col gap-3 p-4 md:w-[48%] w-full text-white rounded-lg shadow-lg bg-gradient-to-br ${
           browserGradients[visit.browser?.toLowerCase()] ||
           browserGradients.default
         }`}
@@ -60,6 +60,11 @@
         <p class="text-sm truncate">
           <span class="font-semibold">Referrer:</span>
           {visit.referrer || "Direct"}
+        </p>
+        <p class="text-sm font-bold text-shadow-lg">
+          {new Date(visit.time * 1000).toLocaleString("en-PK", {
+            timeZone: "Asia/Karachi",
+          })}
         </p>
       </div>
     {/each}
