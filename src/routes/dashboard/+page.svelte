@@ -1,13 +1,19 @@
 <script>
   let { data } = $props();
   let modal;
+
+  function getFavicon(url) {
+    return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`;
+  }
 </script>
 
 <div
-  class="flex flex-col py-20 min-h-[calc(100vh-80px)] w-full xl:px-100 lg:px-50 sm:px-20 px-5"
+  class="flex flex-col md:py-18 py-10 min-h-[calc(100vh-80px)] w-full xl:px-100 lg:px-50 sm:px-20 px-5"
 >
-  <div class="flex justify-between">
-    <h1 class="text-3xl font-bold">{data?.session?.user?.name}'s Websites:</h1>
+  <div class="flex md:flex-row flex-col gap-3 justify-between items-baseline">
+    <h1 class="md:text-3xl text-2xl font-bold">
+      {data?.session?.user?.name}'s Websites:
+    </h1>
     <!-- You can open the modal using ID.showModal() method -->
     <button onclick={() => modal.showModal()} class="btn btn-primary"
       >+ Add Website</button
@@ -39,5 +45,25 @@
         </form>
       </div>
     </dialog>
+  </div>
+
+  <!-- websites -->
+  <div class="flex py-10 flex-wrap gap-5">
+    {#each data.websites as website}
+      <div
+        class="flex flex-col gap-4 md:w-[48%] w-full p-4 bg-base-100 rounded-lg shadow"
+      >
+        <div class="flex gap-2 items-center">
+          <img
+            src={getFavicon(website.url)}
+            alt="favicon"
+            class="md:w-10 md:h-10 w-7 h-7 aspect-square rounded-full"
+          />
+          <h2 class="text-2xl font-bold">{website.name}</h2>
+        </div>
+        <p class="text-md">{website.url}</p>
+        <button class="btn btn-info">View Analytics</button>
+      </div>
+    {/each}
   </div>
 </div>
