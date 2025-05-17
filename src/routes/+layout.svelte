@@ -3,7 +3,6 @@
 
   import { SignIn } from "@auth/sveltekit/components";
   let { children, data } = $props();
-  console.log(data.session);
 </script>
 
 <div id="container" class="flex flex-col relative bg-base-200">
