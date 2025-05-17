@@ -7,15 +7,7 @@ import { redirect } from "@sveltejs/kit";
 export async function load(event) {
   const session = await event.locals.auth();
 
-  if (!session) {
-    throw redirect(302, "/auth/signin");
-  }
-
   const user = session.user;
-
-  if (!user || !user.email) {
-    throw redirect(302, "/auth/signin");
-  }
 
   // Get user from DB using email
   const [dbUser] = await db
