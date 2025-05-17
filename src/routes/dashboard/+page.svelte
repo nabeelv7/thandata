@@ -63,7 +63,9 @@
           <h2 class="text-2xl font-bold">{website.name}</h2>
         </div>
         <p class="text-md">{website.url}</p>
-        <button class="btn btn-info">View Analytics</button>
+        <a href={`/dashboard/analytics/${website.id}`} class="btn btn-info"
+          >View Analytics</a
+        >
       </div>
     {/each}
   </div>

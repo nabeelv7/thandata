@@ -1,8 +1,8 @@
 <script>
-  export let data;
+  let { data } = $props();
 
   const browserGradients = {
-    chrome: "from-green-400 to-blue-400",
+    chrome: "from-green-400 via-cyan-400 to-blue-400",
     firefox: "from-orange-500 via-red-500 to-yellow-500",
     safari: "from-blue-400 via-cyan-400 to-blue-600",
     edge: "from-blue-500 via-green-500 to-indigo-500",
@@ -31,6 +31,14 @@
   <h1 class="text-2xl font-bold text-shadow-lg">
     Total Views: {data.visits.length}
   </h1>
+  {#if data.visits.length === 0}
+    Paste this in the &lt;head&gt; tag of your website:
+    <div class="mockup-code w-full">
+      <pre><code>
+        {`<script data-domain=${data.website.url} src="https://stats.thandata.com/script.min.js"></script>`}
+      </code></pre>
+    </div>
+  {/if}
   <div class="flex py-5 flex-wrap gap-5">
     {#each data.visits as visit}
       <div
