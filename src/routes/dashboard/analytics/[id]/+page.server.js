@@ -12,9 +12,17 @@ export async function load(event) {
     throw redirect(302, "/auth/signin");
   }
 
+  const [dbUser] = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, user.email));
+
+  if (!dbUser) {
+    throw redirect(302, "/auth/signin");
+  }
+
   const { id } = event.params;
 
-  // Fetch the website and check ownership
   const website = await db
     .select()
     .from(websites)
@@ -25,7 +33,7 @@ export async function load(event) {
     throw error(404, "Website not found");
   }
 
-  if (website.ownerId !== user.id) {
+  if (website.ownerId !== dbUser.id) {
     throw error(
       403,
       "You do not have permission to view this website's analytics"
