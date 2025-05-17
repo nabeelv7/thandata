@@ -1,6 +1,5 @@
 <script>
   let { data } = $props();
-  console.log(data.session);
 </script>
 
 <div class="flex flex-col items-center justify-center">
