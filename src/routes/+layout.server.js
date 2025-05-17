@@ -1,8 +1,12 @@
 /** @type {import('./$types').PageLoad} */
 export const load = async (event) => {
-  const session = await event.locals.auth();
+  try {
+    const session = await event.locals.auth();
 
-  return {
-    session,
-  };
+    return {
+      session,
+    };
+  } catch (error) {
+    console.log(error);
+  }
 };

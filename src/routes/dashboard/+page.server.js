@@ -5,28 +5,32 @@ import { redirect } from "@sveltejs/kit";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
-  const session = await event.locals.auth();
+  try {
+    const session = await event.locals.auth();
 
-  const user = session.user;
+    const user = session.user;
 
-  // Get user from DB using email
-  const [dbUser] = await db
-    .select()
-    .from(users)
-    .where(eq(users.email, user.email));
+    // Get user from DB using email
+    const [dbUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, user.email));
 
-  if (!dbUser) {
-    throw redirect(302, "/auth/signin");
+    if (!dbUser) {
+      throw redirect(302, "/auth/signin");
+    }
+
+    const userWebsites = await db
+      .select()
+      .from(websites)
+      .where(eq(websites.ownerId, dbUser.id));
+
+    return {
+      websites: userWebsites,
+    };
+  } catch (error) {
+    console.log(error);
   }
-
-  const userWebsites = await db
-    .select()
-    .from(websites)
-    .where(eq(websites.ownerId, dbUser.id));
-
-  return {
-    websites: userWebsites,
-  };
 }
 
 /** @type {import('./$types').Actions} */
