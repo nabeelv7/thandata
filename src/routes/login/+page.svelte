@@ -1,6 +1,7 @@
 <script>
   import ButtonGithub from "$lib/components/ButtonLogin.svelte";
-
-  let { data } = $props();
-  console.log(data.session);
 </script>
+
+<div cl>
+  <ButtonGithub />
+</div>
