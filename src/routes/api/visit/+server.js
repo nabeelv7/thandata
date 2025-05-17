@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 /** @type {import('./$types').RequestHandler} */
 export async function POST(event) {
   const data = await event.request.json();
+  console.log(data);
   // {
   //   domain: 'https://thadabox.com/',
   //   location: { country: 'Pakistan', city: 'Islamabad', flag: '🇵🇰' },
@@ -20,16 +21,21 @@ export async function POST(event) {
     .from(websites)
     .where(eq(websites.url, data.domain));
 
-  await db.insert(visits).values({
-    websiteId: website.id,
-    country: data.location.country,
-    city: data.location.city,
-    flag: data.location.flag,
-    referrer: data.referrer,
-    device: data.device,
-    browser: data.browser,
-    os: data.os,
-    time: data.time,
-  });
+  console.log(website);
+
+  if (website) {
+    await db.insert(visits).values({
+      websiteId: website[0].id,
+      domain: data.domain,
+      country: data.location.country,
+      city: data.location.city,
+      flag: data.location.flag,
+      referrer: data.referrer,
+      device: data.device,
+      browser: data.browser,
+      os: data.os,
+      time: data.time,
+    });
+  }
   return new Response();
 }
