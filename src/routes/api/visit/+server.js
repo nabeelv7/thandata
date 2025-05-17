@@ -38,7 +38,7 @@ export async function POST(event) {
       return new Response(null, {
         status: 200,
         headers: {
-          "Access-Control-Allow-Origin": `${website.url}`,
+          "Access-Control-Allow-Origin": `*`,
         },
       });
     }
