@@ -1,21 +1,20 @@
-import { db } from "$lib/server/db";
-import { visits, websites } from "$lib/server/db/schema";
-import { eq } from "drizzle-orm";
+/** @type {import('./$types').RequestHandler} */
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*", // or restrict to your frontend domain
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(event) {
   try {
     const data = await event.request.json();
-    console.log(data);
-    // {
-    //   domain: 'https://thadabox.com/',
-    //   location: { country: 'Pakistan', city: 'Islamabad', flag: '🇵🇰' },
-    //   referrer: '',
-    //   device: 'desktop',
-    //   browser: 'Firefox',
-    //   os: 'Linux',
-    //   time: 1747488541
-    // }
+
     const website = await db
       .select()
       .from(websites)
@@ -35,8 +34,20 @@ export async function POST(event) {
         time: data.time,
       });
     }
-    return new Response();
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // or your domain
+      },
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // still needed
+      },
+    });
   }
 }
