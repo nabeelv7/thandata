@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="fixed top-10 right-10 flex justify-between items-center w-full px-100"
+  class="fixed py-5 flex justify-between items-center w-full xl:px-100 lg:px-50 sm:px-20 px-5"
 >
   <div class="flex justify-center items-center gap-2">
     <a href="/" class="text-3xl font-bold text-shadow-lg">ThanData</a>
