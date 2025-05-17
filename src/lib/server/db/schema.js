@@ -101,7 +101,7 @@ export const websites = sqliteTable("websites", {
 
 export const visits = sqliteTable("visits", {
   id: integer("id").primaryKey({ autoIncrement: true }),
-  websiteId: text("websiteId")
+  websiteId: integer("websiteId")
     .notNull()
     .references(() => websites.id, {
       onDelete: "cascade",

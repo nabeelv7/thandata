@@ -22,12 +22,9 @@ export async function load(event) {
   }
 
   const { id } = event.params;
+  console.log("ID", id);
 
-  const website = await db
-    .select()
-    .from(websites)
-    .where(eq(websites.id, id))
-    .then((res) => res[0]);
+  const [website] = await db.select().from(websites).where(eq(websites.id, id));
 
   if (!website) {
     throw error(404, "Website not found");
@@ -44,6 +41,7 @@ export async function load(event) {
     .select()
     .from(visits)
     .where(eq(visits.websiteId, id));
+  console.log(websiteVisits);
 
   return {
     website,
