@@ -86,3 +86,46 @@ export const authenticators = sqliteTable(
 );
 
 // main schema
+export const websites = sqliteTable("websites", {
+  id: text("id").primaryKey(),
+  name: text("name"),
+  url: text("url"),
+  ownerId: text("ownerId")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+    }),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }),
+  updatedAt: integer("updatedAt", { mode: "timestamp_ms" }),
+});
+
+export const visits = sqliteTable("visits", {
+  id: text("id").primaryKey(),
+  websiteId: text("websiteId")
+    .notNull()
+    .references(() => websites.id, {
+      onDelete: "cascade",
+    }),
+
+  // visit data
+  // {
+  //   domain: 'https://thadabox.com/',
+  //   location: { country: 'Pakistan', city: 'Islamabad', flag: '🇵🇰' },
+  //   referrer: '',
+  //   device: 'desktop',
+  //   browser: 'Firefox',
+  //   os: 'Linux',
+  //   time: 1747484649
+  // }
+
+  domain: text("domain").notNull(),
+  location: text("location").notNull(),
+  referrer: text("referrer").notNull(),
+  device: text("device").notNull(),
+  browser: text("browser").notNull(),
+  os: text("os").notNull(),
+  time: integer("time").notNull(),
+
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }),
+  updatedAt: integer("updatedAt", { mode: "timestamp_ms" }),
+});
