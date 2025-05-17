@@ -1,5 +1,18 @@
 <script>
   let { data } = $props();
+  let codeContainer = $state();
+
+  const scriptTag =
+    '&lt;script data-domain="' +
+    data.website.url +
+    '" src="https://thandata.vercel.app/script.min.js" defer&gt;&lt;/script&gt;';
+
+  function copyToClipboard() {
+    navigator.clipboard
+      .writeText(codeContainer.textContent)
+      .then(() => console.log("Copied to clipboard!"))
+      .catch(() => console.log("Failed to copy!"));
+  }
 
   const browserGradients = {
     chrome: "from-green-400 via-cyan-400 to-blue-400",
@@ -21,8 +34,11 @@
 </script>
 
 <div
-  class="w-full xl:px-100 lg:px-50 sm:px-20 px-5 min-h-[calc(100vh-80px)] flex flex-col"
+  class="w-full xl:px-100 lg:px-50 sm:px-20 px-5 min-h-[calc(100vh-80px)] flex flex-col pb-10"
 >
+  <div class="mt-5">
+    <a href="/dashboard" class="btn btn-primary">&larr; Back to Dashboard</a>
+  </div>
   <h1 class="md:text-4xl text-3xl font-bold mb-2 mt-10">
     Visits for {data.website.name}
   </h1>
@@ -31,14 +47,30 @@
   <h1 class="text-2xl font-bold text-shadow-lg">
     Total Views: {data.visits.length}
   </h1>
+
   {#if data.visits.length === 0}
-    Paste this in the &lt;head&gt; tag of your website:
-    <div class="mockup-code w-full">
-      <pre><code>
-        {`<script data-domain=${data.website.url} src="https://stats.thandata.com/script.min.js"></script>`}
-      </code></pre>
+    <div class="flex flex-col gap-3 py-10">
+      <h1 class="text-xl">
+        Paste this in the &lt;head&gt; tag of your website:
+      </h1>
+
+      <div class="relative w-full">
+        <button
+          class="absolute top-2 right-2 btn btn-accent z-10 uppercase"
+          onclick={copyToClipboard}
+        >
+          Copy
+        </button>
+
+        <div
+          class="mockup-code w-full rounded-md text-xl font-mono bg-accent text-accent-content"
+        >
+          <pre><code bind:this={codeContainer}>{@html scriptTag}</code></pre>
+        </div>
+      </div>
     </div>
   {/if}
+
   <div class="flex py-5 flex-wrap gap-5">
     {#each data.visits as visit}
       <div
