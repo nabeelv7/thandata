@@ -14,16 +14,6 @@
       .catch(() => console.log("Failed to copy!"));
   }
 
-  const browserGradients = {
-    chrome: "from-green-400 via-cyan-400 to-blue-400",
-    firefox: "from-orange-500 via-red-500 to-yellow-500",
-    safari: "from-blue-400 via-cyan-400 to-blue-600",
-    edge: "from-blue-500 via-green-500 to-indigo-500",
-    opera: "from-red-400 via-pink-500 to-purple-500",
-    brave: "from-amber-500 via-orange-500 to-yellow-500",
-    default: "from-gray-300 via-gray-400 to-gray-500",
-  };
-
   const deviceEmojis = {
     desktop: "🖥️",
     mobile: "📱",
@@ -74,10 +64,7 @@
   <div class="flex py-5 flex-wrap gap-5">
     {#each data.visits as visit}
       <div
-        class={`flex flex-col gap-3 p-4 md:w-[48%] w-full text-white rounded-lg shadow-lg bg-gradient-to-br ${
-          browserGradients[visit.browser?.toLowerCase()] ||
-          browserGradients.default
-        }`}
+        class="flex flex-col gap-3 p-4 md:w-[48%] w-full rounded-lg shadow-lg bg-base-100 border border-secondary"
       >
         <div class="flex gap-3 items-center">
           <span class="text-2xl">{visit.flag}</span>
