@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 export async function POST(event) {
   try {
     const data = await event.request.json();
+    console.log(data);
     // {
     //   domain: 'https://thadabox.com/',
     //   location: { country: 'Pakistan', city: 'Islamabad', flag: '🇵🇰' },
@@ -20,7 +21,7 @@ export async function POST(event) {
       .from(websites)
       .where(eq(websites.url, data.domain));
 
-    if (website) {
+    if (website[0]) {
       await db.insert(visits).values({
         websiteId: website[0].id,
         domain: data.domain,
