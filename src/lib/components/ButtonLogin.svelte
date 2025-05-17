@@ -3,11 +3,14 @@
 </script>
 
 <!-- GitHub -->
-<button onclick={signIn} class="btn bg-black text-white border-black">
+<button
+  onclick={() => signIn("github")}
+  class="btn bg-black text-white border-black md:btn-xl max-md:btn-wide flex gap-3 font-sans"
+>
   <svg
     aria-label="GitHub logo"
-    width="16"
-    height="16"
+    width="30"
+    height="30"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     ><path

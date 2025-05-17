@@ -1,6 +1,4 @@
 <script>
-  import ButtonGithub from "$lib/components/ButtonLogin.svelte";
-
   let { data } = $props();
-  console.log(data.session);
+  console.log(data.session?.user?.name);
 </script>
