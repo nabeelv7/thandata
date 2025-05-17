@@ -1,9 +1,7 @@
 import { signIn } from "../../auth";
-import { redirect } from "@sveltejs/kit";
 
-function signInAction() {
-  signIn();
-  return redirect("/");
+async function signInAction() {
+    signIn();
 }
 
-export const actions = { default: signInAction };
+export const actions = { default: signIn };

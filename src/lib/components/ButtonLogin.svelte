@@ -1,10 +1,6 @@
-<script>
-  import { signIn } from "@auth/sveltekit/client";
-</script>
-
 <!-- GitHub -->
 <button
-  onclick={() => signIn("github")}
+  type="submit"
   class="btn bg-black text-white border-black md:btn-xl max-md:btn-wide flex gap-3 font-sans"
 >
   <svg

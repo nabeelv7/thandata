@@ -1,5 +1,4 @@
-<script>
-  import ButtonLogin from "$lib/components/ButtonLogin.svelte";
+<script lang="ts">
 </script>
 
 <div
@@ -16,6 +15,6 @@
       />
       <h1 class="text-4xl font-bold text-shadow-lg">ThanData</h1>
     </div>
-    <ButtonLogin />
+   
   </div>
 </div>
