@@ -6,10 +6,6 @@
   console.log(data.session);
 </script>
 
-<SignIn>
-  <button>Login with Github</button>
-</SignIn>
+<SignIn>Continue with Github</SignIn>
 
-<SignOut>
-  <button>Sign Out</button>
-</SignOut>
+<SignOut>Logout</SignOut>
