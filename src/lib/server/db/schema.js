@@ -87,7 +87,7 @@ export const authenticators = sqliteTable(
 
 // main schema
 export const websites = sqliteTable("websites", {
-  id: text("id").primaryKey(),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name"),
   url: text("url"),
   ownerId: text("ownerId")
@@ -100,7 +100,7 @@ export const websites = sqliteTable("websites", {
 });
 
 export const visits = sqliteTable("visits", {
-  id: text("id").primaryKey(),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   websiteId: text("websiteId")
     .notNull()
     .references(() => websites.id, {
